@@ -2,7 +2,6 @@
 
 **Author:** sesha siva sankar (member 1)
 **Task date:** Tue, Sep 22
-**Written:** Sat, Sep 26
 **Task:** Define warning-threshold rules (e.g. more than 25% in one stock)
 
 ---

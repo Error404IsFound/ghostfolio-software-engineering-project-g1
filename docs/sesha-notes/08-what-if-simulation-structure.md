@@ -2,7 +2,6 @@
 
 **Author:** sesha siva sankar (member 1)
 **Task date:** Wed, Sep 23
-**Written:** Sat, Sep 26
 **Task:** Design "what-if" simulation data structure (drop-by-X% on a holding)
 
 ---

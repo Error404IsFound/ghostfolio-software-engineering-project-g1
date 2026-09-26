@@ -2,7 +2,7 @@
 
 **Author:** sesha siva sankar (member 1)
 **Task date:** Thu, Sep 24
-**Written:** Sat, Sep 26
+
 **Task:** Wireframe risk dashboard (red/yellow/green indicators)
 
 ---

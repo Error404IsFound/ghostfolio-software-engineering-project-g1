@@ -2,7 +2,6 @@
 
 **Author:** sesha siva sankar (member 1)
 **Task date:** Fri, Sep 25
-**Written:** Sat, Sep 26
 **Task:** Write API contract for risk endpoints (request/response shapes)
 
 ---
