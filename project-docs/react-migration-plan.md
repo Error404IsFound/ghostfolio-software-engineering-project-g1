@@ -1,12 +1,13 @@
 # Ghostfolio — React Migration Plan
 
-*Author: Raniya Shaikh | Iteration 1 | Sep 18, 2026*
+_Author: Raniya Shaikh | Iteration 1 | Sep 18, 2026_
 
 This document evaluates the current frontend framework and scopes the migration path toward a new React-based component architecture, building on `architecture-baseline.md` and `target-architecture.md`.
 
 ## 1. Current Framework
 
 **Angular.** Confirmed by:
+
 - `ngsw-config.json` (Angular Service Worker config)
 - `proxy.conf.json`, `localhost.cert`/`.pem` (standard Angular CLI dev-server artifacts)
 - `main.ts`, `polyfills.ts`, `styles.scss`, `index.html` at the `apps/client/src` level — the standard Angular CLI project shape

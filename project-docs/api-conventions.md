@@ -1,10 +1,10 @@
 # Ghostfolio — Shared API Conventions & Data-Layer Contracts
 
-*Author: Raniya Shaikh | Iteration 1 | Sep 21, 2026*
+_Author: Raniya Shaikh | Iteration 1 | Sep 21, 2026_
 
 This document defines the conventions Sesha (risk), Tharun (tax), Arthur (charts), and Raniya (dashboard) should follow when writing formal API contracts (due Fri Sep 25) and building endpoints in Iteration 2. It extends the existing pattern already used by `apps/api/src/app/portfolio/`, rather than inventing a new one.
 
-*Note: teammates' formal specs aren't due until Sep 25 — this is a proposed convention based on the existing codebase pattern. Flag anything that doesn't fit your feature's data and we'll adjust.*
+_Note: teammates' formal specs aren't due until Sep 25 — this is a proposed convention based on the existing codebase pattern. Flag anything that doesn't fit your feature's data and we'll adjust._
 
 ## 1. Response Envelope
 
@@ -12,8 +12,8 @@ Every endpoint returns a consistent top-level shape:
 
 ```json
 {
-  "data": { },
-  "meta": { },
+  "data": {},
+  "meta": {},
   "error": null
 }
 ```
@@ -39,11 +39,11 @@ Every endpoint returns a consistent top-level shape:
 
 To keep the dashboard's aggregation (Sep 22–23) consistent when merging data from all three feature APIs:
 
-| Type | Format |
-| --- | --- |
-| Dates | ISO 8601 string (`"2026-09-21"` or `"2026-09-21T00:00:00Z"` for timestamps) |
-| Currency | Numeric value + separate ISO currency code field (e.g. `{ "amount": 1234.56, "currency": "USD" }`), not a formatted string |
-| Percentages | Decimal (e.g. `0.0725` for 7.25%), not pre-formatted strings — let the frontend format for display |
+| Type        | Format                                                                                                                     |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Dates       | ISO 8601 string (`"2026-09-21"` or `"2026-09-21T00:00:00Z"` for timestamps)                                                |
+| Currency    | Numeric value + separate ISO currency code field (e.g. `{ "amount": 1234.56, "currency": "USD" }`), not a formatted string |
+| Percentages | Decimal (e.g. `0.0725` for 7.25%), not pre-formatted strings — let the frontend format for display                         |
 
 ## 4. Error Shape
 
@@ -69,7 +69,7 @@ For any endpoint returning a list:
 
 ```json
 {
-  "data": [ ],
+  "data": [],
   "meta": {
     "page": 1,
     "pageSize": 25,

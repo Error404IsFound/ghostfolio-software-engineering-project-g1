@@ -1,6 +1,6 @@
 # Ghostfolio — Current Architecture Baseline
 
-*Author: Raniya Shaikh | Iteration 1 | Sep 16, 2026*
+_Author: Raniya Shaikh | Iteration 1 | Sep 16, 2026_
 
 This document maps the current structure of the Ghostfolio codebase as a baseline for planning the target modular architecture (Sep 17) and the React migration scope (Sep 18).
 
@@ -8,15 +8,15 @@ This document maps the current structure of the Ghostfolio codebase as a baselin
 
 The repo is an Nx-style monorepo split into apps and shared libraries:
 
-| Folder | Purpose |
-| --- | --- |
-| `apps/api` | Backend server (NestJS) |
-| `apps/client` | Frontend application |
-| `libs/` | Shared code imported by both api and client (types, utils, constants) |
-| `prisma/` | Database schema and migrations — the data access layer |
-| `docker/`, `Dockerfile` | Deployment/infrastructure config |
-| `project-docs/` | Existing project documentation |
-| `test/` | End-to-end / integration tests |
+| Folder                  | Purpose                                                               |
+| ----------------------- | --------------------------------------------------------------------- |
+| `apps/api`              | Backend server (NestJS)                                               |
+| `apps/client`           | Frontend application                                                  |
+| `libs/`                 | Shared code imported by both api and client (types, utils, constants) |
+| `prisma/`               | Database schema and migrations — the data access layer                |
+| `docker/`, `Dockerfile` | Deployment/infrastructure config                                      |
+| `project-docs/`         | Existing project documentation                                        |
+| `test/`                 | End-to-end / integration tests                                        |
 
 ## 2. Backend Layering (`apps/api/src`)
 

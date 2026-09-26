@@ -1,6 +1,6 @@
 # Ghostfolio — Unified Dashboard Field Spec
 
-*Author: Raniya Shaikh | Iteration 1 | Sep 22, 2026*
+_Author: Raniya Shaikh | Iteration 1 | Sep 22, 2026_
 
 This document specifies which fields the Unified Portfolio Overview Dashboard pulls from the risk, tax, and chart APIs, using the response envelope defined in `api-conventions.md`.
 
@@ -8,25 +8,25 @@ This document specifies which fields the Unified Portfolio Overview Dashboard pu
 
 ## 1. Risk (Sesha)
 
-| Field | Source | Notes |
-| --- | --- | --- |
-| `healthScore` | Portfolio Health Score (0–100) | Sesha's core model, drafted Sep 16 |
-| `topConcentrationRisk` | Concentration formula | Single highest concentration flag (stock/sector/country/currency), drafted Sep 17 |
+| Field                  | Source                         | Notes                                                                             |
+| ---------------------- | ------------------------------ | --------------------------------------------------------------------------------- |
+| `healthScore`          | Portfolio Health Score (0–100) | Sesha's core model, drafted Sep 16                                                |
+| `topConcentrationRisk` | Concentration formula          | Single highest concentration flag (stock/sector/country/currency), drafted Sep 17 |
 
 ## 2. Tax (Tharun)
 
-| Field | Source | Notes |
-| --- | --- | --- |
-| `grossDividendYTD` | Activity model (`type = DIVIDEND`) | Confirmed available — dividends are stored as regular activities (`quantity × unitPrice`), per Tharun's Sep 15 review |
-| `netDividendYTD` | Activity model + withholding (pending) | **Not yet available** — withholding tax fields are not designed yet (Tharun's Sep 16 task). Placeholder only. |
-| `realizedGainsYTD` | FIFO capital gains calc | **Not yet available** — FIFO spec is Tharun's Sep 17 task, not yet pushed. Placeholder only. |
+| Field              | Source                                 | Notes                                                                                                                 |
+| ------------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `grossDividendYTD` | Activity model (`type = DIVIDEND`)     | Confirmed available — dividends are stored as regular activities (`quantity × unitPrice`), per Tharun's Sep 15 review |
+| `netDividendYTD`   | Activity model + withholding (pending) | **Not yet available** — withholding tax fields are not designed yet (Tharun's Sep 16 task). Placeholder only.         |
+| `realizedGainsYTD` | FIFO capital gains calc                | **Not yet available** — FIFO spec is Tharun's Sep 17 task, not yet pushed. Placeholder only.                          |
 
 ## 3. Charts (Arthur)
 
-| Field | Source | Notes |
-| --- | --- | --- |
-| `totalReturn` | Total-return vs price-return comparison spec | Drafted Sep 18 |
-| `benchmarkDelta` | Benchmark comparison data model | Drafted Sep 22 |
+| Field            | Source                                       | Notes          |
+| ---------------- | -------------------------------------------- | -------------- |
+| `totalReturn`    | Total-return vs price-return comparison spec | Drafted Sep 18 |
+| `benchmarkDelta` | Benchmark comparison data model              | Drafted Sep 22 |
 
 ## 4. Draft Response Shape
 
@@ -37,7 +37,11 @@ Using the envelope from `api-conventions.md`:
   "data": {
     "risk": {
       "healthScore": 0,
-      "topConcentrationRisk": { "type": "stock", "value": "AAPL", "percentage": 0.0 }
+      "topConcentrationRisk": {
+        "type": "stock",
+        "value": "AAPL",
+        "percentage": 0.0
+      }
     },
     "tax": {
       "grossDividendYTD": 0.0,

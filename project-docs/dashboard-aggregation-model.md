@@ -1,6 +1,6 @@
 # Ghostfolio — Dashboard Aggregation Data Model & Wireframe
 
-*Author: Raniya Shaikh | Iteration 1 | Sep 23, 2026*
+_Author: Raniya Shaikh | Iteration 1 | Sep 23, 2026_
 
 This document finalizes the aggregation data model for the Unified Portfolio Overview Dashboard and provides its wireframe, building on `dashboard-field-spec.md`.
 
@@ -13,10 +13,14 @@ The dashboard endpoint returns fields **nested by feature**, rather than flatten
   "data": {
     "risk": {
       "healthScore": 78,
-      "topConcentrationRisk": { "type": "stock", "value": "AAPL", "percentage": 0.28 }
+      "topConcentrationRisk": {
+        "type": "stock",
+        "value": "AAPL",
+        "percentage": 0.28
+      }
     },
     "tax": {
-      "grossDividendYTD": 310.00,
+      "grossDividendYTD": 310.0,
       "netDividendYTD": null,
       "realizedGainsYTD": null
     },
@@ -43,6 +47,7 @@ This is a design note for whoever implements the dashboard service in Iteration 
 See `wireframe.svg` (same folder).
 
 **Layout:**
+
 - **Top KPI row** — three headline numbers at a glance: Health Score, Total Return, Gross Dividend YTD.
 - **Feature detail cards** — one card per feature (Risk, Tax, Charts) below the KPI row, each showing its full set of fields from the aggregation model above.
 - The Tax card explicitly shows **Net Dividend YTD** and **Realized Gains YTD** as "— pending —" rather than hiding them, so the dashboard's UI doesn't need reworking once those fields exist Sep 25 — the layout is already built to accommodate them.

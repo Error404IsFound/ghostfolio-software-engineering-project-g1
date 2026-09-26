@@ -1,6 +1,6 @@
 # Ghostfolio — Target Modular Architecture
 
-*Author: Raniya Shaikh | Iteration 1 | Sep 17, 2026*
+_Author: Raniya Shaikh | Iteration 1 | Sep 17, 2026_
 
 This document proposes the target architecture for the four new features (Portfolio Health & Risk, Tax Metrics, Upgraded Performance Charts, Unified Dashboard) plus the React migration, building on `architecture-baseline.md`.
 
@@ -22,12 +22,12 @@ This is the same pattern already used by the existing `portfolio` module (contro
 
 Following the existing `apps/api/src/app/<feature>/` convention:
 
-| Feature | Owner | Folder | Contents |
-| --- | --- | --- | --- |
-| Portfolio Health & Risk | Sesha | `apps/api/src/app/risk/` | `risk.controller.ts`, `risk.module.ts`, `risk.service.ts`, supporting services (e.g. concentration, volatility), DTOs |
-| Tax Metrics & Calculations | Tharun | `apps/api/src/app/tax/` | `tax.controller.ts`, `tax.module.ts`, `tax.service.ts`, supporting services (e.g. FIFO calc, tax-lot tracking), DTOs |
-| Upgraded Performance Charts | Arthur | `apps/api/src/app/charts/` | `charts.controller.ts`, `charts.module.ts`, `charts.service.ts`, supporting services (e.g. benchmark comparison, drawdown), DTOs |
-| Unified Portfolio Overview Dashboard | Raniya | `apps/api/src/app/dashboard/` | `dashboard.controller.ts`, `dashboard.module.ts`, `dashboard.service.ts`, aggregation logic, DTOs |
+| Feature                              | Owner  | Folder                        | Contents                                                                                                                         |
+| ------------------------------------ | ------ | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Portfolio Health & Risk              | Sesha  | `apps/api/src/app/risk/`      | `risk.controller.ts`, `risk.module.ts`, `risk.service.ts`, supporting services (e.g. concentration, volatility), DTOs            |
+| Tax Metrics & Calculations           | Tharun | `apps/api/src/app/tax/`       | `tax.controller.ts`, `tax.module.ts`, `tax.service.ts`, supporting services (e.g. FIFO calc, tax-lot tracking), DTOs             |
+| Upgraded Performance Charts          | Arthur | `apps/api/src/app/charts/`    | `charts.controller.ts`, `charts.module.ts`, `charts.service.ts`, supporting services (e.g. benchmark comparison, drawdown), DTOs |
+| Unified Portfolio Overview Dashboard | Raniya | `apps/api/src/app/dashboard/` | `dashboard.controller.ts`, `dashboard.module.ts`, `dashboard.service.ts`, aggregation logic, DTOs                                |
 
 Each module follows the same internal shape as `portfolio`: a controller for HTTP endpoints, a module for DI wiring, a service (plus any supporting sub-services) for business logic, and DTOs defining request/response contracts.
 
@@ -36,6 +36,7 @@ Each module follows the same internal shape as `portfolio`: a controller for HTT
 **Decision: the dashboard module calls the other three modules only through their public API/controller layer — never their services directly.**
 
 Rationale:
+
 - Matches the project's stated goal of moving toward SOA/3-tier MVC — a service-to-service backdoor between features defeats the purpose of the module boundary.
 - Keeps each feature module independently testable and replaceable; the dashboard becomes a consumer like any other client of the risk/tax/charts APIs.
 - Forces the API conventions (Sep 21) and API contracts (Sep 25, per-feature) to actually be used and validated early, rather than bypassed internally.
