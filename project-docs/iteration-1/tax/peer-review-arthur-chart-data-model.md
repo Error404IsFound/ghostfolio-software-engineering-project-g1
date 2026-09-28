@@ -1,10 +1,10 @@
 # Peer Review — Arthur's Performance Chart Data Model
 
-**Reviewer:** Tharun Swaminathan  
-**Feature Owner Reviewed:** Arthur Elly Lim — Upgraded Performance Charts  
-**Iteration:** 1 — Design & Data Modelling  
-**Scheduled Task:** September 28, 2026  
-**Review Prepared:** September 26, 2026  
+**Reviewer:** Tharun Swaminathan
+**Feature Owner Reviewed:** Arthur Elly Lim — Upgraded Performance Charts
+**Iteration:** 1 — Design & Data Modelling
+**Scheduled Task:** September 28, 2026
+**Review Finalized:** September 28, 2026
 **Scope:** Design/documentation review only; no chart implementation changes
 
 ## Purpose
@@ -48,14 +48,17 @@ libs/common/src/lib/chart-helper.ts
 
 ## Repository Status Note
 
-At review time, the remote `arthur` branch is diverged from `main`:
+Before the final review was completed, Arthur's chart-design work was merged into
+the current `main` branch. The review therefore uses the chart documents now
+present on `main`, rather than an outdated branch comparison.
 
-```text
-3 commits ahead of its merge base
-34 commits behind current main
-```
+At this stage, the chart design set visible on `main` includes the audit,
+zoom/pan range spec, value/invested-capital/cash toggle spec, total-return vs.
+price-return spec, contribution/waterfall structure, benchmark comparison model,
+drawdown calculation spec, and a chart issue-backlog document.
 
-Arthur should synchronize with current `main` before a final PR. Because the branch is behind, unrelated differences in a raw comparison should not be treated as intentional chart changes until after synchronization.
+The interactive chart wireframe itself is not present in the repository path
+reviewed here.
 
 ## What Is Working Well
 
@@ -312,6 +315,101 @@ The existing shared line-chart implementation already supports two datasets thro
 
 The final React implementation should still coordinate with Raniya's shared React component architecture.
 
+## Additional Review of Sep 21–25 Chart Deliverables
+
+The later chart documents are now present on `main` and were included in the
+final peer review.
+
+### Contribution / waterfall model
+
+The proposed reconciliation identity is useful:
+
+```text
+start value
++ net cash flow
++ market gain/loss
++ dividends
+= end value
+```
+
+However, the calculation inputs still need tighter definitions before coding.
+
+Ghostfolio's persisted `Order` activity types do not include generic
+`DEPOSIT`/`WITHDRAWAL` activities. Cash history can also come through account
+balance data and synthetic cash handling in the portfolio calculator.
+
+**Recommendation:** define exactly which existing Ghostfolio source records
+produce `netCashFlow`, and specify the waterfall formula so buys, sells,
+dividends, and changing cash balances cannot be double counted.
+
+The `marketGainLoss` definition should also be stated as a deterministic formula,
+not only as "pure price movement."
+
+### Benchmark comparison model
+
+The benchmark document is directionally sound in reusing existing market-data
+symbols instead of creating a new benchmark database entity.
+
+Two contract details need correction:
+
+1. benchmark identity should use Ghostfolio's existing `dataSource + symbol`
+   pattern rather than `symbol` alone;
+2. the benchmark-return convention must be explicit.
+
+A portfolio total-return index should not silently be compared with a benchmark
+price-only index unless that is an intentional, documented choice. The spec must
+define which historical price field/distribution treatment produces
+`benchmarkReturn`.
+
+### Drawdown model
+
+The full-history peak rule is well specified and avoids resetting drawdown to
+zero simply because the user zoomed into a later range.
+
+One semantic decision still needs to be made: the current spec calculates
+drawdown from raw portfolio value. Deposits and withdrawals can therefore create
+or deepen apparent drawdowns even when market performance has not changed.
+
+**Recommendation:** explicitly decide whether the feature is:
+
+```text
+portfolio-value drawdown
+```
+
+or:
+
+```text
+investment-performance / return-index drawdown
+```
+
+Either can be valid, but the UI label and calculation contract must match the
+chosen meaning.
+
+### Chart issue backlog
+
+The repository now contains:
+
+```text
+project-docs/iteration-1/audit/chart-feature-github-issues.md
+```
+
+This is a paste-ready issue backlog, not evidence that the corresponding GitHub
+issues were actually filed. At review time, no matching chart issues were found
+in the repository's GitHub Issues list.
+
+If Sep 25 requires the issues to be filed rather than only drafted, Arthur
+should create them in GitHub and record their issue numbers.
+
+### Interactive chart wireframe
+
+The issue backlog references an external interactive-chart wireframe, but no
+wireframe file is present under the chart design folder reviewed on `main`.
+
+If the external artifact is the official deliverable, the team should ensure it
+is accessible for grading/review. Preferably, a repository copy or screenshot
+should be stored with the project documentation so the design remains available
+without relying on an external artifact link.
+
 ## Sprint Completeness Check
 
 Arthur's scheduled Iteration 1 work before this peer review includes:
@@ -328,19 +426,15 @@ Sep 24 - interactive chart wireframe
 Sep 25 - GitHub issues for every chart sub-feature
 ```
 
-On the remote `arthur` branch inspected for this review, only the audit and Sep 16–18 design documents are present.
+The audit and Sep 16–23 design documents are now visible on `main`, along with
+the chart issue-backlog document.
 
-The following could not be reviewed because they are not visible there:
+The remaining verification items are:
 
 ```text
-contribution/waterfall chart data structure
-benchmark comparison data model
-drawdown calculation spec
-interactive chart wireframe
-chart GitHub issue backlog
+interactive chart wireframe stored/accessibly linked for the team
+actual GitHub chart issues created, if filing rather than drafting is required
 ```
-
-This may mean those deliverables exist locally or in another PR/branch. Arthur should confirm their location before Iteration 1 closes.
 
 ## Documentation Cleanup
 
@@ -400,10 +494,13 @@ Highest-priority corrections:
 6. Remove currency-based timezone wording.
 7. Preserve all filters/access/redaction behavior.
 8. Define exact price-return and total-return formulas.
-9. Use `dataSource + symbol` for holding identity.
+9. Use `dataSource + symbol` for holding and benchmark identity.
 10. Clarify gross-vs-net distribution behavior with the shared/tax contract.
-11. Confirm the missing Sep 21–25 chart deliverables.
-12. Sync Arthur's branch with current `main` before final merge/review.
+11. Define exact waterfall source inputs/reconciliation to prevent double counting.
+12. Decide whether drawdown is raw portfolio-value drawdown or return/performance drawdown.
+13. Define the benchmark return convention so portfolio and benchmark series are comparable.
+14. Ensure the chart wireframe is stored or reliably accessible.
+15. Create the actual GitHub chart issues if the sprint requires filing, not only drafting.
 
 ## Changes Made by Reviewer
 
