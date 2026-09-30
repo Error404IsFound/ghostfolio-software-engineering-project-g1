@@ -1,24 +1,28 @@
 # Ghostfolio — Consolidated Project Backlog
 
-_Author: Raniya Shaikh | Iteration 1 | Sep 28, 2026_
+_Author: Raniya Shaikh | Iteration 1 | Updated Sep 30, 2026_
 
-This document consolidates the GitHub issues filed across all four features into one backlog, ahead of Iteration 2.
+This document consolidates the GitHub issues filed across all four features.
 
-**⚠ Status: blocked, repo-wide.** The Ghostfolio Backlog project board is currently empty — GitHub Issues appears to still be disabled for the repo (no "Issues" tab is visible, and no team member's tasks are filed yet, not just risk). This isn't specific to any one person's work; it's a repo-level setting that needs admin access to turn on. The team has agreed to file issues later once this is resolved. The tables below list the planned issues per feature, to be filed once Issues is enabled.
+**Update (Sep 30):** GitHub Issues has been enabled for the repo. Sesha has filed his risk issues (9, listed below). Tharun and Arthur have not yet filed theirs as of this update. Dashboard issues below are pending filing.
 
-## Risk (Sesha Siva Sankar) — to be filed
+## Risk (Sesha Siva Sankar) — filed
 
-| Planned Issue                      | Milestone   | Label          |
-| ---------------------------------- | ----------- | -------------- |
-| Concentration formula              | Iteration 1 | `feature:risk` |
-| Volatility/cash allocation scoring | Iteration 1 | `feature:risk` |
-| Deviation-from-target-allocation   | Iteration 1 | `feature:risk` |
-| Warning-threshold rules            | Iteration 1 | `feature:risk` |
-| "What-if" simulation               | Iteration 1 | `feature:risk` |
-| Risk dashboard wireframe           | Iteration 1 | `feature:risk` |
-| Risk API contract                  | Iteration 1 | `feature:risk` |
+| Issue                                                                                                                   | Iteration   | Label           |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------- | --------------- |
+| [#26] Build the risk dashboard as React components                                                                      | Iteration 3 | `feature: risk` |
+| [#25] Unit test suite for the risk engine (Week 4 wrap-up)                                                              | Iteration 2 | `feature: risk` |
+| [#24] Implement the risk API contract (summary, score, warnings, concentration, target-allocation, thresholds, what-if) | Iteration 2 | `feature: risk` |
+| [#23] Build the what-if (holding drop) simulation engine                                                                | Iteration 2 | `feature: risk` |
+| [#22] Add yellow/red severity thresholds on top of existing pass/fail                                                   | Iteration 2 | `feature: risk` |
+| [#21] Store and validate user-defined target allocation                                                                 | Iteration 2 | `feature: risk` |
+| [#20] Precompute portfolio volatility and covariance data nightly                                                       | Iteration 2 | `feature: risk` |
+| [#19] Build the weighted Portfolio Health Score calculator                                                              | Iteration 2 | `feature: risk` |
+| [#18] Extend the rule engine with concentration, volatility, cash and target-deviation rule types                       | Iteration 2 | `feature: risk` |
 
-## Tax (Tharun Swaminathan) — to be filed
+_Note: these are filed as Iteration 2/3 implementation tasks rather than Iteration 1 design-only issues — reflects Sesha's actual filing, not a discrepancy to fix._
+
+## Tax (Tharun Swaminathan) — not yet filed
 
 | Planned Issue                                    | Milestone   | Label         |
 | ------------------------------------------------ | ----------- | ------------- |
@@ -30,7 +34,7 @@ This document consolidates the GitHub issues filed across all four features into
 | "Tax relevant" transaction flag + filtering spec | Iteration 1 | `feature:tax` |
 | CSV/PDF export format for tax records            | Iteration 1 | `feature:tax` |
 
-## Charts (Arthur Elly Lim) — to be filed
+## Charts (Arthur Elly Lim) — not yet filed
 
 | Planned Issue                                           | Milestone   | Label            |
 | ------------------------------------------------------- | ----------- | ---------------- |
@@ -42,7 +46,7 @@ This document consolidates the GitHub issues filed across all four features into
 | Drawdown chart calculation spec                         | Iteration 1 | `feature:charts` |
 | Interactive chart UI wireframe                          | Iteration 1 | `feature:charts` |
 
-## Dashboard (Raniya Shaikh) — to be filed
+## Dashboard (Raniya Shaikh) — pending filing today
 
 | Planned Issue                    | Milestone   | Label               |
 | -------------------------------- | ----------- | ------------------- |
@@ -53,6 +57,6 @@ This document consolidates the GitHub issues filed across all four features into
 
 ## Next Steps
 
-- Resolve the Issues-disabled blocker (needs repo admin access — flagged with the team).
-- Once enabled, file all issues listed above, cross-checking row by row against the sprint plan so nothing is missed.
-- Update this doc with real issue links once filed.
+- File the 4 dashboard issues above (now unblocked).
+- Confirm with Tharun and Arthur whether they plan to file before today's report deadline.
+- Update this doc with their real issue numbers once filed.
