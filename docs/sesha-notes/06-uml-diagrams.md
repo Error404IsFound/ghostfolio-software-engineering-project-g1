@@ -344,7 +344,7 @@ classDiagram
         +grossDividend number
         +withholdingTax number nullable
         +netDividend number
-        +withholdingRate number nullable
+        +withholdingTaxRate number nullable
     }
     class YearlyTaxSummary {
         +year number
@@ -380,7 +380,7 @@ classDiagram
 
 - `TaxCalculator` is an interface with two implementations. The investor picks one, and everything downstream (summary, export) doesn't care which one ran.
 - `withholdingTax` is nullable on purpose (Tharun's rule): null means unknown, zero means known and nothing was withheld. `DividendRecord` keeps that difference, so the yearly summary never treats "unknown" as zero.
-- `isTaxRelevant` is the Sep 23 flag from Tharun's plan. I don't know his final name for it yet, so check with him before this goes in the report.
+- `isTaxRelevant` matches Tharun's confirmed Sep 23 field exactly: a non-nullable boolean, defaulting to true, on the activity.
 
 ### 3.3 Charts
 
@@ -395,6 +395,7 @@ classDiagram
         +endDate date
     }
     class ChartSeriesResponse {
+        +kind ChartSeriesKind
         +granularity Granularity
         +startDate date
         +endDate date
@@ -408,16 +409,15 @@ classDiagram
         DAILY
         WEEKLY
     }
-    class SeriesType {
+    class ChartSeriesKind {
         <<enumeration>>
-        PORTFOLIO_VALUE
-        INVESTED_CAPITAL
-        CASH
+        portfolioValue
+        investedCapital
+        cash
     }
-    class ReturnType {
-        <<enumeration>>
-        TOTAL_RETURN
-        PRICE_RETURN
+    class ReturnComparisonResponse {
+        +priceReturn number list
+        +totalReturn number list
     }
     class ContributionEntry {
         +symbol string
@@ -444,9 +444,9 @@ classDiagram
 
     ChartSeriesResponse "1" *-- "1..*" SeriesPoint
     ChartSeriesResponse --> Granularity
+    ChartSeriesResponse --> ChartSeriesKind
     ChartSeriesResponse ..> TimeRangeSelection : answers
-    ChartSeriesResponse ..> SeriesType : one series per type
-    ChartSeriesResponse ..> ReturnType : compares two
+    ReturnComparisonResponse ..> TimeRangeSelection : for a range
     BenchmarkComparison "1" o-- "2" ChartSeriesResponse : portfolio and benchmark
     BenchmarkComparison ..> MarketData : benchmark prices
     DrawdownPeriod ..> ChartSeriesResponse : found in value series
@@ -455,6 +455,8 @@ classDiagram
 
 - Zoom and pan never create a new concept. Both just become a `custom` `TimeRangeSelection` (Arthur's design), so the backend has one simple contract.
 - Granularity comes back with the data (daily up to 2 years, weekly beyond that), so the chart knows how to space the x-axis.
+- `kind` (`ChartSeriesKind`, per Arthur's confirmed design) tags a `ChartSeriesResponse` so the frontend can label the axis without guessing which of value, invested capital or cash it's looking at.
+- Total return and price return are not a toggle. `ReturnComparisonResponse` returns both as aligned, indexed series in one response, so the chart draws both lines at once and the gap between them is the point of the feature.
 
 ### 3.4 Unified dashboard
 
@@ -477,7 +479,7 @@ classDiagram
         +totalWithholdingTax number
     }
     class PerformanceSummary {
-        +seriesType SeriesType
+        +kind ChartSeriesKind
         +latestValue number
         +changePercentage number
     }
@@ -638,6 +640,6 @@ flowchart TD
 
 ## 5. Things to double check before this goes in the report
 
-- **Names owned by teammates:** `isTaxRelevant`, `SeriesType` and `ReturnType` follow the plan but aren't published yet. Check against Tharun's Sep 23 doc and Arthur's Sep 17 and Sep 18 docs when they land.
+- **Names owned by teammates, now confirmed:** `isTaxRelevant` matches Tharun's Sep 23 doc exactly. Arthur's real names differ from my first guess: it's `ChartSeriesKind` (a lowercase string union: `portfolioValue`, `investedCapital`, `cash`), not `SeriesType`/`PORTFOLIO_VALUE`; and there is no `ReturnType` toggle at all — total return and price return come back together as one `ReturnComparisonResponse`, since the feature's value is seeing both lines at once. The diagrams above have been corrected to match.
 - **Composite score endpoint:** the iteration plan has no build slot for `HealthScoreCalculator` in Iteration 2, so it should become its own backlog issue.
 - **Rendering:** the diagrams render on GitHub. For the PDF report, paste each block into mermaid.live and export as PNG or SVG.
