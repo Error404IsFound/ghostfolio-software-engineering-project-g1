@@ -13,7 +13,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PR_BOT_TOKEN }}
         run: |
-          declare -A REVIEWER=( [sesha]=tharun-gh [tharun]=arthur-gh [arthur]=raniya-gh [raniya]=sesha-gh )
+          declare -A REVIEWER=( [sesha]=TharunSwaminathan [tharun]=Error404IsFound [arthur]=Raniyafs [raniya]=sesha456 )
           for b in $(git branch -r --format="%(refname:short)" | grep -E "^origin/(sesha|tharun|arthur|raniya)/"); do
             br=${b#origin/}; who=${br%%/*}
             ahead=$(git rev-list --count origin/main..$b)
